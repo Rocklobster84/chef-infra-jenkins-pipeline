@@ -1,19 +1,15 @@
 ---
 driver:
-  name: dokken
+  name: vagrant
 
 provisioner:
-  name: dokken
-
-transport:
-  name: dokken
+  name: chef_zero
 
 verifier:
   name: inspec
 
 platforms:
   - name: ubuntu-20.04
-#  - name: centos-7
 
 suites:
   - name: default
