@@ -4,18 +4,18 @@
 #
 # Copyright:: 2022, Stephanie Thompson, All Rights Reserved.
 
-apt_update 
+apt_update
 
 package 'openjdk-8-jdk'
 
 remote_file 'jenkins.war' do
-    source 'https://get.jenkins.io/war-stable/2.249.2/jenkins.war'
+  source 'https://get.jenkins.io/war-stable/2.249.2/jenkins.war'
 end
 
 execute 'nohup java -jar jenkins.war &'
 
 execute 'show initial password' do
-    command 'sudo cat /root/.jenkin/secrets/initialAdminPassword'
-    live_stream true
-    action :run 
+  command 'sudo cat /root/.jenkin/secrets/initialAdminPassword'
+  live_stream true
+  action :run
 end

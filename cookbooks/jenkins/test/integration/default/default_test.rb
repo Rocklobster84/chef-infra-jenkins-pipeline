@@ -7,6 +7,6 @@ describe file('/root/.jenkins/secrets/initialAdminPassword') do
   it { should exist }
 end
 
-describe command ('curl localhost:8080') do 
+describe command('curl localhost:8080') do
   its('stdout') { should match(/hudson/) }
 end

@@ -9,9 +9,9 @@ default['nodejs']['packages'] = value_for_platform_family(
     'freebsd' => %w(node npm),
     'default' => ['nodejs']
   )
-  
-  # Add options and actions by package name
-  default['nodejs']['package_action'] = { default: :install }
-  default['nodejs']['package_options'] = { default: '' }
-  # Disable upstream DNF module on EL8 based systems
-  default['nodejs']['dnf_module'] = false
+
+# Add options and actions by package name
+default['nodejs']['package_action'] = { default: :install }
+default['nodejs']['package_options'] = { default: '' }
+# Disable upstream DNF module on EL8 based systems
+default['nodejs']['dnf_module'] = false
