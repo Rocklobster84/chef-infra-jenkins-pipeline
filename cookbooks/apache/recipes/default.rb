@@ -3,6 +3,7 @@
 # Recipe:: default
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
+apt_update
 
 package node['apache']['package_name'] 
 
