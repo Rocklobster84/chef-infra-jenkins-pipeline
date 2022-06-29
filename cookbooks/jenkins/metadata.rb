@@ -1,6 +1,6 @@
 name 'jenkins'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Stephanie Thompson'
+maintainer_email 'thompson@progress.com'
 license 'All Rights Reserved'
 description 'Installs/Configures jenkins'
 version '0.1.0'

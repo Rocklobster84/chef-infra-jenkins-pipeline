@@ -6,16 +6,18 @@
 
 apt_update
 
-package 'openjdk-8-jdk'
+package 'openjdk-11-jre'
 
-remote_file 'jenkins.war' do
-  source 'https://get.jenkins.io/war-stable/2.249.2/jenkins.war'
+apt_repository "jenkins" do
+  uri "http://pkg.jenkins-ci.org/debian-stable"
+  key "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
+  components ["binary/"]
+  action :add
 end
 
-execute 'nohup java -jar jenkins.war &'
+package "jenkins"
 
-execute 'show initial password' do
-  command 'sudo cat /root/.jenkin/secrets/initialAdminPassword'
-  live_stream true
-  action :run
+service "jenkins" do
+  supports [:stop, :start, :restart]
+  action [:start, :enable]
 end
