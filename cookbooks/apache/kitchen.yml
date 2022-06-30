@@ -1,6 +1,6 @@
 ---
 driver:
-  name: dokken
+  name: vagrant
 
 ## The forwarded_port port feature lets you connect to ports on the VM guest
 ## via localhost on the host.
@@ -10,7 +10,7 @@ driver:
 #    - ["forwarded_port", {guest: 80, host: 8080}]
 
 provisioner:
-  name: dokken
+  name: chef_zero
 
   ## product_name and product_version specifies a specific Chef product and version to install.
   ## see the Chef documentation for more details: https://docs.chef.io/workstation/config_yml_kitchen/
@@ -18,15 +18,10 @@ provisioner:
   #  product_version: 17
 
 verifier:
-  name: dokken
+  name: inspec
 
 platforms:
   - name: ubuntu-20.04
-    driver:
-      image: dokken/ubuntu-20.04
-      pid_one_command: /bin/systemd
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
   #- name: centos-7
 
 suites:
