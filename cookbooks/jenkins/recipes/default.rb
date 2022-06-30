@@ -8,19 +8,16 @@ apt_update
 
 package 'openjdk-11-jre'
 
-apt_repository 'jenkins' do
-  uri 'http://pkg.jenkins.io/debian-stable'
-  key 'https://pkg.jenkins.io/debian-stable/jenkins.io.key'
-  distribution ['binary/']
-  action :add
+directory '/opt/jenkins' do
+  owner 'ubuntu'
+  group 'ubuntu'
+  recursive true
 end
 
-apt_package 'jenkins' do
+package 'docker.io' do
   action :install
 end
 
-service 'jenkins' do
-  action [:start, :enable]
+group 'docker' do
+  members ['ubuntu']
 end
-
-#sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
