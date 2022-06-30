@@ -8,9 +8,12 @@ pipeline {
                 cleanWs()
             }
         }
-        stage('Second') {
+        stage('Install Chef Workstation') {
             steps {
-                echo "Second Stage"
+                sh 'sudo apt-get install -y wget tree unzip'
+                sh 'wget https://packages.chef.io/files/stable/chef-workstation/21.8.555/ubuntu/ 20.04/chef-workstation_22.6.973-1_amd64.deb'
+                sh 'sudo dpkg -i chef-workstation_21.8.555-1_amd64.deb'
+                sh 'sudo chef env --chef-license accept'
             }
         }
         stage('Third Stage') {
