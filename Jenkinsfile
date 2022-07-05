@@ -41,9 +41,10 @@ pipeline {
                 }
             }
         }
+        // Test Apache cookbook
         stage('Run Kitchen Destroy') {
             steps {
-                sh 'cd /cookbooks/apache'
+                sh 'cd cookbooks/apache'
                 sh 'sudo kitchen destroy'
             }
         }
