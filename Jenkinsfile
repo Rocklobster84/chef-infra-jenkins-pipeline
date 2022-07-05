@@ -25,7 +25,7 @@ pipeline {
         }
         stage('DL Apache Cookbook') {
             steps {
-                git branch: 'main', credentialsId: 'git-repo-creds', url: 'https://github.com/Rocklobster84/chef-infra-jenkins-pipeline/tree/main/cookbooks/apache'
+                git branch: 'main', credentialsId: 'git-repo-creds', url: 'git@github.com:Rocklobster84/chef-infra-jenkins-pipeline.git'
             }
         }
     }
