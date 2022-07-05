@@ -23,9 +23,15 @@ pipeline {
                 }
             }
         }
-        stage('DL Apache Cookbook') {
+        stage('DL Cookbooks') {
             steps {
                 git branch: 'main', credentialsId: 'git-repo-creds', url: 'git@github.com:Rocklobster84/chef-infra-jenkins-pipeline.git'
+            }
+        }
+        stage('Install Kitchen Docker Gem') {
+            steps {
+                sh 'sudo apt-get install -y make gcc'
+                sh 'sudo chef gem install kitchen-docker'
             }
         }
     }
