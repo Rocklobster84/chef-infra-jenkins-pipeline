@@ -49,22 +49,22 @@ pipeline {
         }
         stage('Run Kitchen Create') {
             steps {
-                sh 'sudo kitchen create'
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen create'
             }
         }
         stage('Run Kitchen Converge') {
             steps {
-                sh 'sudo kitchen converge'
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen converge'
             }
         }
         stage('Run Kitchen Verify') {
             steps {
-                sh 'sudo kitchen verify'
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen verify'
             }
         }
         stage('Kitchen Destroy') {
             steps {
-                sh 'sudo kitchen destroy'
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
         }
     }
