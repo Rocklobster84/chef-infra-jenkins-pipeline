@@ -44,7 +44,8 @@ pipeline {
         // Test Apache cookbook
         stage('Run Kitchen Destroy') {
             steps {
-                sh 'sudo kitchen destroy cookbooks/apache'
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/'
+                sh 'sudo kitchen destroy'
             }
         }
         stage('Run Kitchen Create') {
