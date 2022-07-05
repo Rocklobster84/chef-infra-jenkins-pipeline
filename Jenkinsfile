@@ -30,12 +30,14 @@ pipeline {
         }
         stage('Install Kitchen Docker Gem') {
             steps {
-                def exists = fileExists '/opt/docker'
-                if (exists == true) {
-                    echo "Skip - kitchen-docker already installed"
-                } else {
-                    sh 'sudo apt-get install -y make gcc'
-                    sh 'sudo chef gem install kitchen-docker'
+                script {
+                    def exists = fileExists '/opt/docker'
+                    if (exists == true) {
+                        echo "Skip - kitchen-docker already installed"
+                    } else {
+                        sh 'sudo apt-get install -y make gcc'
+                        sh 'sudo chef gem install kitchen-docker'
+                    }
                 }
             }
         }
