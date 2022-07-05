@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Install Kitchen Docker Gem') {
             steps {
-                def fileExists = '/opt/docker'
+                def exists = fileExists '/opt/docker'
                 if (exists == true) {
                     echo "Skip - kitchen-docker already installed"
                 } else {
