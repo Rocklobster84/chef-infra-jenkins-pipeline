@@ -34,13 +34,11 @@ pipeline {
                 if (exists == true) {
                     echo "Skip - kitchen-docker already installed"
                 } else {
-                steps {
                     sh 'sudo apt-get install -y make gcc'
                     sh 'sudo chef gem install kitchen-docker'
                 }
             }
         }
-    }
         stage('Run Kitchen Destroy') {
             steps {
                 sh 'sudo kitchen destroy'
