@@ -13,7 +13,7 @@ pipeline {
                 script {
                     def exists = fileExists '/usr/bin/chef-client'
                     if (exists == true) {
-                        echo "Skipping - Workstation already installed"
+                        echo "Skip - Workstation already installed"
                     } else {
                         sh 'sudo apt-get install -y wget tree unzip'
                         sh ' wget https://packages.chef.io/files/stable/chef-workstation/21.8.555/ubuntu/20.04/chef-workstation_21.8.555-1_amd64.deb'
@@ -29,9 +29,39 @@ pipeline {
             }
         }
         stage('Install Kitchen Docker Gem') {
+            def fileExists = '/opt/docker'
+            if (exists == true) {
+                echo "Skip - kitchen-docker already installed"
+            } else {
             steps {
                 sh 'sudo apt-get install -y make gcc'
                 sh 'sudo chef gem install kitchen-docker'
+            }
+        }
+    }
+        stage('Run Kitchen Destroy') {
+            steps {
+                sh 'sudo kitchen destroy'
+            }
+        }
+        stage('Run Kitchen Create') {
+            steps {
+                sh 'sudo kitchen create'
+            }
+        }
+        stage('Run Kitchen Converge') {
+            steps {
+                sh 'sudo kitchen converge'
+            }
+        }
+        stage('Run Kitchen Verify') {
+            steps {
+                sh 'sudo kitchen verify'
+            }
+        }
+        stage('Kitchen Destroy') {
+            steps {
+                sh 'sudo kitchen destroy'
             }
         }
     }
