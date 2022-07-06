@@ -85,7 +85,7 @@ pipeline {
     }
     post {
         success {
-            slackSend color: 'warning', message: "${env.JOB_NAME} ${env.BUILD_NUMBER Successful!)"
+            slackSend color: 'warning', message: "${env.JOB_NAME} ${env.BUILD_NUMBER} Successful!)"
     }
         failure {
             slackSend color: 'warning', message: "${env.JOB_NAME} ${env.BUILD_NUMBER} Failed!)"
