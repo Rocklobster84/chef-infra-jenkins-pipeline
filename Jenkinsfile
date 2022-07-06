@@ -81,8 +81,8 @@ pipeline {
         }
         stage('Upload to Chef Infra Server') {
             steps {
-                sh 'chef install $WORKSPACE/Policyfile.rb -c $WORKSPACE/config.rb'
-                sh 'sudo chef push prod $WORKSPACE/Policyfile.lock.json -c $WORKSPACE/config.rb'
+                sh 'chef install $WORKSPACE/policyfiles/apache.rb -c $WORKSPACE/config.rb'
+                sh 'sudo chef push prod $WORKSPACE/policyfiles/apache.lock.json -c $WORKSPACE/config.rb'
             }
         }
         stage('Converge Chef-managed nodes') {
