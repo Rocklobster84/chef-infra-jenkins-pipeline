@@ -74,7 +74,7 @@ pipeline {
         }
         stage('Create Chef Pem'){
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'chef-server-pem', keyFileVariable: 'CHEF_PEM', usernameVariable: 'rocklobster1984')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'Chef-Manage-Pem', keyFileVariable: 'CHEF_PEM', usernameVariable: 'rocklobster1984')]) {
                     sh 'cat > $WORKSPACE/rocklobster1984.pem < $CHEF_PEM'
                 }
             }
