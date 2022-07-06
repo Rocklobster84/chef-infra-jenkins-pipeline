@@ -59,7 +59,7 @@ pipeline {
         }
         stage('Run Kitchen Converge') {
             steps {
-                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && git config --global --add safe.directory /opt/jenkins/workspace/chef-pipeline && sudo kitchen converge'
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo git config --global --add safe.directory /opt/jenkins/workspace/chef-pipeline && sudo kitchen converge'
             }
         }
         stage('Run Kitchen Verify') {
