@@ -72,6 +72,26 @@ pipeline {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
         }
+        stage('Create Chef Pem'){
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'chef-server-pem', keyFileVariable: 'CHEF_PEM', usernameVariable: 'rocklobster1984')]) {
+                    sh 'cat > $WORKSPACE/rocklobster1984.pem < $CHEF_PEM'
+                }
+            }
+        }
+        stage('Upload to Chef Infra Server') {
+            steps {
+                sh 'chef install $WORKSPACE/Policyfile.rb -c $WORKSPACE/config.rb'
+                sh 'sudo chef push prod $WORKSPACE/Policyfile.lock.json -c $WORKSPACE/config.rb'
+            }
+        }
+        stage('Converge Chef-managed nodes') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'agent-key', keyFileVariable: 'AGENT_KEY', usernameVariable: 'ubuntu')]) {
+                sh 'knife ssh "policy_name:apache" -x ubuntu -i $AGENT_KEY "sudo chef-client" -c $WORKSPACE/config.rb'
+                }
+            }
+        }
         stage('Slack Notification') {
             steps {
                 slackSend color: 'warning', message: "Stephanie: Please approve ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.JOB_URL} | Open>)"
