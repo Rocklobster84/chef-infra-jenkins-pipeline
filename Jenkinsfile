@@ -72,5 +72,23 @@ pipeline {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
         }
+        stage('Slack Notification') {
+            steps {
+                slackSend color: 'warning', message: "Stephanie: Please approve ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.JOB_URL} | Open>)"
+            }
+        }
+        stage('Request Input'){
+            steps {
+                input 'Please approve or deny this build'
+            }
+        }
     }
+    post {
+        success {
+            slackSend color: 'warning', message: "${env.JOB_NAME} ${env.BUILD_NUMBER Successful!"
+    }
+        failure {
+            slackSend color: 'warning', message: "${env.JOB_NAME} ${env.BUILD_NUMBER} Failed!"
+    }   
+  }
 }
