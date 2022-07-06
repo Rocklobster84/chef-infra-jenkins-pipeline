@@ -28,6 +28,11 @@ pipeline {
                 git branch: 'main', credentialsId: 'git-repo-creds', url: 'git@github.com:Rocklobster84/chef-infra-jenkins-pipeline.git'
             }
         }
+        stage('Trust git') {
+            steps {
+                sh 'git config --global --add safe.directory /opt/jenkins/workspace/chef-pipeline'
+            }
+        }
         stage('Install Kitchen Docker Gem') {
             steps {
                 script {
