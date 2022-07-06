@@ -3,10 +3,6 @@
 # The Chef InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
-describe port(80) do
-  it { should be_listening }
-end
-
 describe command('curl http://localhost') do
   its(:stdout) { should match(/Welcome Home!/) }
 end
