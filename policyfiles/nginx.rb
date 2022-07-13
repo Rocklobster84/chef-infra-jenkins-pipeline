@@ -7,7 +7,9 @@
 name 'nginx'
 
 # This lets you source cookbooks from your chef-repo.
-default_source :chef_repo, '../'
+default_source :chef_repo, '/opt/jenkins/workspace/chef-pipeline/cookbooks' do |s|
+  s.preferred_for 'nginx'
+end
 
 # Where to find external cookbooks:
 default_source :supermarket
