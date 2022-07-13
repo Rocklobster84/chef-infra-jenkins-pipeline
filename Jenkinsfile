@@ -47,7 +47,7 @@ pipeline {
             }
         }
         // Test Apache cookbook
-        stage('Apache Run Kitchen Destroy') {
+        /*stage('Apache Run Kitchen Destroy') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
@@ -71,7 +71,7 @@ pipeline {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
-        }
+        }*/
         // Test NGINX cookbook
         stage('NGINX Run Kitchen Destroy') {
             steps {
