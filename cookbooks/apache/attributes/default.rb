@@ -1,5 +1,4 @@
-case node['platform']
-when 'ubuntu'
+if platform?('ubuntu')
   default['apache']['package_name'] = 'apache2'
   default['apache']['service_name'] = 'apache2'
 else
