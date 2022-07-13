@@ -47,7 +47,7 @@ pipeline {
             }
         }
         // Test Apache cookbook
-        stage('Run Kitchen Destroy') {
+        stage('Apache Run Kitchen Destroy') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
@@ -72,6 +72,32 @@ pipeline {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
         }
+        // Test NGINX cookbook
+        stage('Apache Run Kitchen Destroy') {
+            steps {
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx/ && sudo kitchen destroy'
+            }
+        }
+        stage('Run Kitchen Create') {
+            steps {
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx/ && sudo kitchen create'
+            }
+        }
+        stage('Run Kitchen Converge') {
+            steps {
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx/ && sudo git config --global --add safe.directory /opt/jenkins/workspace/chef-pipeline && sudo kitchen converge'
+            }
+        }
+        stage('Run Kitchen Verify') {
+            steps {
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx/ && sudo kitchen verify'
+            }
+        }
+        stage('Kitchen Destroy') {
+            steps {
+                sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx && sudo kitchen destroy'
+            }
+        }
         stage('Create Chef Pem'){
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'Chef-Manage-Pem', keyFileVariable: 'CHEF_PEM', usernameVariable: 'rocklobster1984')]) {
@@ -79,16 +105,22 @@ pipeline {
                 }
             }
         }
-        stage('Upload to Chef Infra Server') {
+        stage('Upload Apache to Chef Infra Server') {
             steps {
                 sh 'chef install $WORKSPACE/policyfiles/apache.rb -c $WORKSPACE/config.rb'
                 sh 'sudo chef push prod $WORKSPACE/policyfiles/apache.lock.json -c $WORKSPACE/config.rb'
             }
         }
+        stage('Upload NGINX to Chef Infra Server') {
+            steps {
+                sh 'chef install $WORKSPACE/policyfiles/nginx.rb -c $WORKSPACE/config.rb'
+                sh 'sudo chef push prod $WORKSPACE/policyfiles/nginx.lock.json -c $WORKSPACE/config.rb'
+            }
+        }
         stage('Converge Chef-managed nodes') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'agent-key', keyFileVariable: 'AGENT_KEY', usernameVariable: 'ubuntu')]) {
-                sh 'knife ssh "policy_name:apache" -x ubuntu -i $AGENT_KEY "sudo chef-client" -c $WORKSPACE/config.rb'
+                sh 'knife ssh "policy_name:apache" -x ubuntu -i $AGENT_KEY "sudo chef-client" -c $WORKSPACE/config.rb && knife ssh "policy_name:nginx" -x ubuntu -i $AGENT_KEY "sudo chef-client" -c $WORKSPACE/config.rb'
                 }
             }
         }
