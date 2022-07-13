@@ -52,48 +52,48 @@ pipeline {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
         }
-        stage('Run Kitchen Create') {
+        stage('Apache Run Kitchen Create') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen create'
             }
         }
-        stage('Run Kitchen Converge') {
+        stage('Apache Run Kitchen Converge') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo git config --global --add safe.directory /opt/jenkins/workspace/chef-pipeline && sudo kitchen converge'
             }
         }
-        stage('Run Kitchen Verify') {
+        stage('Apache Run Kitchen Verify') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen verify'
             }
         }
-        stage('Kitchen Destroy') {
+        stage('Apache Kitchen Destroy') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
         }
         // Test NGINX cookbook
-        stage('Apache Run Kitchen Destroy') {
+        stage('NGINX Run Kitchen Destroy') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx/ && sudo kitchen destroy'
             }
         }
-        stage('Run Kitchen Create') {
+        stage('NGINX Run Kitchen Create') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx/ && sudo kitchen create'
             }
         }
-        stage('Run Kitchen Converge') {
+        stage('NGINX Run Kitchen Converge') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx/ && sudo git config --global --add safe.directory /opt/jenkins/workspace/chef-pipeline && sudo kitchen converge'
             }
         }
-        stage('Run Kitchen Verify') {
+        stage('NGINX Run Kitchen Verify') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx/ && sudo kitchen verify'
             }
         }
-        stage('Kitchen Destroy') {
+        stage('NGINX Kitchen Destroy') {
             steps {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx && sudo kitchen destroy'
             }
