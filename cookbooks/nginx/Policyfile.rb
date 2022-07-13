@@ -13,4 +13,5 @@ default_source :supermarket
 run_list 'nginx::default'
 
 # Specify a custom source for a single cookbook:
-cookbook 'nginx', path: '.'
+#cookbook 'nginx', path: '.'
+cookbook 'nginx', '~> 12.0.12', :supermarket
