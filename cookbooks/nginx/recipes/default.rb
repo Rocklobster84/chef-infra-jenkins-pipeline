@@ -11,3 +11,7 @@ end
 service 'nginx' do
   action [ :enable, :start ]
 end
+
+file '/etc/nginx/nginx.conf' do
+  mode '0700'
+end

@@ -125,6 +125,7 @@ pipeline {
                 }
             }
         }
+        /*
         stage('Slack Notification') {
             steps {
                 slackSend color: 'warning', message: "Stephanie: Please approve ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.JOB_URL} | Open>)"
@@ -135,6 +136,7 @@ pipeline {
                 input 'Please approve or deny this build'
             }
         }
+        */
     }
     post {
         success {
