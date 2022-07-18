@@ -72,6 +72,7 @@ pipeline {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/apache/ && sudo kitchen destroy'
             }
         }
+        */
         // Test NGINX cookbook
         stage('NGINX Run Kitchen Destroy') {
             steps {
@@ -98,7 +99,7 @@ pipeline {
                 sh 'cd /opt/jenkins/workspace/chef-pipeline/cookbooks/nginx && sudo kitchen destroy'
             }
         }
-        */
+        
         stage('Create Chef Pem'){
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'Chef-Manage-Pem', keyFileVariable: 'CHEF_PEM', usernameVariable: 'rocklobster1984')]) {
@@ -118,6 +119,7 @@ pipeline {
                 sh 'sudo chef push prod $WORKSPACE/policyfiles/nginx.lock.json -c $WORKSPACE/config.rb'
             }
         }
+        /*
         stage('Converge Chef-managed nodes') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'agent-key', keyFileVariable: 'AGENT_KEY', usernameVariable: 'ubuntu')]) {
@@ -125,6 +127,7 @@ pipeline {
                 }
             }
         }
+        */
         /*
         stage('Slack Notification') {
             steps {
